@@ -130,7 +130,6 @@ This role has been tested on `Ubuntu 16` only.
 ```
 
 
-
 ## License
 
 MIT / BSD
