@@ -126,7 +126,7 @@ An Ansible role for installing and managing PostgreSQL.
         state: present
     postgresql_tune_total_memory_percentage: 50
   roles:
-    - setup_postgresql
+    - thedumbtechguy.postgresql
 ```
 
 
