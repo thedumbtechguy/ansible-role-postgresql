@@ -1,0 +1,32 @@
+---
+
+- include: install.yml
+  tags: 
+    - postgresql
+    - install
+
+- include: pglogical.yml
+  tags: 
+    - postgresql
+    - pglogical
+  when: postgresql_pglogical
+
+- include: initialize.yml
+  tags: 
+    - postgresql
+    - initialize
+
+- include: configure.yml
+  tags: 
+    - postgresql
+    - configure
+
+- include: pgtune.yml
+  tags: 
+    - postgresql
+    - pgtune
+
+
+# Configure PostgreSQL.
+- include: databases.yml
+- include: users.yml

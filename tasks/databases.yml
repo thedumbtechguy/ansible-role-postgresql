@@ -1,0 +1,21 @@
+---
+
+
+- name: Ensure PostgreSQL databases are present.
+  postgresql_db:
+    name: "{{ item.name }}"
+    lc_collate: "{{ item.lc_collate | default(postgresql_locale) }}"
+    lc_ctype: "{{ item.lc_ctype | default(postgresql_locale) }}"
+    encoding: "{{ item.encoding | default('UTF-8') }}"
+    template: "{{ item.template | default('template0') }}"
+    login_host: "{{ item.login_host | default(omit) }}"
+    login_user: "{{ item.login_user | default('postgres') }}"
+    login_password: "{{ item.login_password | default(omit) }}"
+    port: "{{ item.port | default(omit) }}"
+    state: "{{ item.state | default('present') }}"
+  become: yes
+  become_user: postgres
+  with_items: "{{ postgresql_databases }}"
+  # See: https://github.com/ansible/ansible/issues/16048#issuecomment-229012509
+  vars:
+    ansible_ssh_pipelining: true

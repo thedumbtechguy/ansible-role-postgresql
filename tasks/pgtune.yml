@@ -1,0 +1,16 @@
+---
+
+
+- name: Tune Postgresql
+  postgresql_tune:
+    db_version: "{{ postgresql_version }}"
+    db_type: "{{ postgresql_tune_db_type }}"
+    total_memory: "{{ postgresql_tune_total_memory }}"
+    total_memory_percentage: "{{ postgresql_tune_total_memory_percentage }}"
+    postgresql_file: "{{ postgresql_config_directory }}/conf.d/99-postgresql-tune.conf"
+    max_connections: "{{ postgresql_max_connections }}"
+    disable_max_connections: true
+  become: true
+  when: postgresql_tune_db
+  notify:
+    - Restart PostgreSQL

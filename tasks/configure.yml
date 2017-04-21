@@ -1,0 +1,38 @@
+---
+
+
+- name: Ensure all configured locales are present.
+  locale_gen: 
+    name: "{{ item }}" 
+    state: present
+  with_items: "[ '{{ postgresql_locale }}' ] + {{ postgresql_additional_locales }}"
+  become: true
+  register: postgresql_locales_result
+
+- name: Configure PostgreSQL host-based authentication
+  template: 
+    src: pg_hba.conf.j2 
+    dest: '{{ postgresql_config_directory }}/pg_hba.conf'
+  become: true
+  register: postgresql_hba_result
+
+- name: Configure PostgreSQL
+  template: 
+    src: postgresql.conf.j2 
+    dest: '{{ postgresql_config_directory }}/postgresql.conf'
+  become: true
+  register: postgresql_configuration_result
+
+- name: Restart PostgreSQL immediately if config changed
+  service: 
+    name: postgresql 
+    state: restarted
+  become: true
+  when: postgresql_configuration_result.changed or postgresql_hba_result.changed or postgresql_locales_result.changed
+
+- name: Ensure PostgreSQL is started and enabled on boot.
+  service:
+    name: postgresql
+    state: started
+    enabled: yes
+  become: true

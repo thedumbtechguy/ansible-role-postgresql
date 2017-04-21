@@ -1,0 +1,22 @@
+---
+
+- name: Configure the PgLogical APT key
+  apt_key: 
+    url: http://packages.2ndquadrant.com/pglogical/apt/AA7A6805.asc 
+    state: present
+  become: true
+
+- name: Configure the PgLogical APT repositories
+  apt_repository: 
+    repo: "deb [arch=amd64] http://packages.2ndquadrant.com/pglogical/apt/ {{ 'xenial' if ansible_distribution_release == 'yakkety' else ansible_distribution_release }}-2ndquadrant main"
+    state: present
+  become: true
+
+- name: Ensure PgLogical and dependencies are installed
+  apt: 
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  become: true
+  with_items:
+    - postgresql-{{ postgresql_version }}-pglogical

@@ -1,0 +1,26 @@
+---
+
+- name: Configure the PostgreSQL APT key
+  apt_key: 
+    url: https://www.postgresql.org/media/keys/ACCC4CF8.asc 
+    state: present
+  become: true
+
+- name: Configure the PostgreSQL APT repositories
+  apt_repository: 
+    repo: "deb http://apt.postgresql.org/pub/repos/apt/ {{ 'xenial' if ansible_distribution_release == 'yakkety' else ansible_distribution_release }}-pgdg main"
+    state: present
+  become: true
+
+- name: Ensure PostgreSQL and dependencies are installed
+  apt: 
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  become: true
+  with_items:
+    - python-psycopg2
+    - libpq-dev
+    - postgresql-{{ postgresql_version }}
+    - postgresql-server-dev-{{ postgresql_version }}
+    - postgresql-contrib-{{ postgresql_version }}
