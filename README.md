@@ -4,7 +4,7 @@ An Ansible role for installing and managing PostgreSQL.
 
 ## Requirements
 
-This role has been tested on `Ubuntu 16` only.
+> This role has been tested on `Ubuntu 16.04` and `Ubuntu 16.10` only.
 
 ## Variables
 
