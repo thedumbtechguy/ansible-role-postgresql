@@ -32,11 +32,11 @@
   stat:
     path: "{{ postgresql_data_directory }}/PG_VERSION"
   become: true
-  register: pgdata_dir_version
+  register: _pgdata_dir_version
 
 - name: Ensure PostgreSQL database is initialized.
   command: "{{ postgresql_binary_directory }}/initdb -D '{{ postgresql_data_directory }}' --locale={{ postgresql_locale }} --encoding=UTF8 --text-search-config=pg_catalog.english"
-  when: not pgdata_dir_version.stat.exists
+  when: not _pgdata_dir_version.stat.exists
   become: yes
   become_user: postgres
   # See: https://github.com/ansible/ansible/issues/16048#issuecomment-229012509
