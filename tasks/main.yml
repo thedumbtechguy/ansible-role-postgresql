@@ -26,7 +26,12 @@
     - postgresql
     - pgtune
 
-
-# Configure PostgreSQL.
 - include: databases.yml
+  tags: 
+    - postgresql
+    - databases
+
 - include: users.yml
+  tags: 
+    - postgresql
+    - users
