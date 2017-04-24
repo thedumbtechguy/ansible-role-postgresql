@@ -29,7 +29,7 @@
     owner: postgres
     group: postgres
     state: directory
-    mode: 0751
+    mode: 0755
   become: true
 
 - name: Restart PostgreSQL immediately if config changed
