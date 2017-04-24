@@ -29,10 +29,3 @@
     state: restarted
   become: true
   when: _postgresql_configuration_result.changed or _postgresql_hba_result.changed or _postgresql_locales_result.changed
-
-- name: Ensure PostgreSQL is started and enabled on boot.
-  service:
-    name: postgresql
-    state: started
-    enabled: yes
-  become: true
