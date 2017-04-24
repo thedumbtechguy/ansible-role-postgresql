@@ -23,9 +23,16 @@
   become: true
   register: _postgresql_configuration_result
 
-- name: Restart PostgreSQL immediately if config changed
+- name: Restart PostgreSQL immediately if config changed | 1. Stop the service
   service: 
     name: postgresql 
-    state: restarted
+    state: stopped
+  become: true
+  when: _postgresql_configuration_result.changed or _postgresql_hba_result.changed or _postgresql_locales_result.changed
+
+- name: Restart PostgreSQL immediately if config changed | 1. Stop the service
+  service: 
+    name: postgresql 
+    state: started
   become: true
   when: _postgresql_configuration_result.changed or _postgresql_hba_result.changed or _postgresql_locales_result.changed
