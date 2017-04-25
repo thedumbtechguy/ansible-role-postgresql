@@ -1,6 +1,5 @@
 ---
 
-
 - name: Ensure all configured locales are present.
   locale_gen: 
     name: "{{ item }}" 

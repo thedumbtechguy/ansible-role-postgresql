@@ -1,6 +1,5 @@
 ---
 
-
 - name: Tune Postgresql
   postgresql_tune:
     db_version: "{{ postgresql_version }}"
