@@ -35,7 +35,8 @@ An Ansible role for installing and managing PostgreSQL.
   - Default: `en_GB.UTF-8`
 - `postgresql_additional_locales` - additional locales to install. Useful for adding separate databases with different locales.
   - Default: `['en_US.UTF-8']`
-
+- `postgresql_timezone` - timezone to use for database and logs.
+  - Default: `Africa/Accra`
 
 ### Tuning
 

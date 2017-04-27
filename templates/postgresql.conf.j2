@@ -466,7 +466,7 @@ log_line_prefix = '%t [%p-%l] %q%u@%d '			# special values:
 #log_temp_files = -1			# log temporary files equal or larger
 					# than the specified size in kilobytes;
 					# -1 disables, 0 logs all temp files
-log_timezone = 'Africa/Accra'
+log_timezone = '{{ postgresql_timezone }}'
 
 
 #------------------------------------------------------------------------------
@@ -554,7 +554,7 @@ log_autovacuum_min_duration = {{ postgresql_log_autovacuum_min_duration }}	# -1 
 
 datestyle = 'iso, mdy'
 #intervalstyle = 'postgres'
-timezone = 'Africa/Accra'
+timezone = '{{ postgresql_timezone }}'
 #timezone_abbreviations = 'Default'     # Select the set of available time zone
 					# abbreviations.  Currently, there are
 					#   Default
