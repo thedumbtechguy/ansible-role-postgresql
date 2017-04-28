@@ -10,39 +10,43 @@ An Ansible role for installing and managing PostgreSQL.
 
 ### General
 
-- `postgresql_version` - PostgreSQL version
+- `postgresql_version`: PostgreSQL version
   - Default: `9.6`
-- `postgresql_listen_addresses` - address for PostgreSQL to bind to
+- `postgresql_listen_addresses`: address for PostgreSQL to bind to
   - Default: `localhost`
-- `postgresql_port` - port for PostgreSQL to bind to
+- `postgresql_port`: port for PostgreSQL to bind to
   - Default: `5432`
-- `postgresql_data_directory` - postgreSQL data directory
+- `postgresql_data_directory`: postgreSQL data directory
   - Default: `/var/lib/postgresql/{{ postgresql_version }}/main`
-- `postgresql_max_connections` - maximum number of connections
+- `postgresql_max_connections`: maximum number of connections
   - Default: `100`
-- `postgresql_shared_buffers` - memory for shared buffers. tuning overrides this value.
+- `postgresql_shared_buffers`: memory for shared buffers. tuning overrides this value.
   - Default: `128MB`
-- `postgresql_work_mem` - memory for worker processes. tuning overrides this value.
+- `postgresql_work_mem`: memory for worker processes. tuning overrides this value.
   - Default: `4MB`
-- `postgresql_log_autovacuum_min_duration` - minimum duration for logging long automatic vacuuming
+- `postgresql_log_autovacuum_min_duration`: minimum duration for logging long automatic vacuuming
   - Default: `-1`
-- `postgresql_log_min_duration_statement` - minimum duration for logging long queries
+- `postgresql_log_min_duration_statement`: minimum duration for logging long queries
   - Default: `-1`
-- `postgresql_hba_mapping` - a mapping of PostgreSQL host-based authentication rules
+- `postgresql_hba_mapping`: a mapping of PostgreSQL host-based authentication rules
   - Default: `[]`
 
-- `postgresql_locale` - default locale to use
+- `postgresql_locale`: default locale to use
   - Default: `en_GB.UTF-8`
-- `postgresql_additional_locales` - additional locales to install. Useful for adding separate databases with different locales.
+- `postgresql_additional_locales`: additional locales to install. Useful for adding separate databases with different locales.
   - Default: `['en_US.UTF-8']`
-- `postgresql_timezone` - timezone to use for database and logs.
+- `postgresql_timezone`: timezone to use for database and logs.
   - Default: `Africa/Accra`
+
+- `postgresql_extensions`: additional list of PostgreSQL extensions to install.
+  - Default: `['postgresql-plpython']`
+  > **NOTE**: `postgresql_version` is appended to the extension name. extension must be avaialable in apt.
 
 ### Tuning
 
-- `postgresql_tune_db` - should we run pgtune
+- `postgresql_tune_db`: should we run pgtune
   - Default: `yes`
-- `postgresql_tune_db_type` - the workload type of the database
+- `postgresql_tune_db_type`: the workload type of the database
   - Default: `mixed`
   - Options:
     - `web`: web applications
@@ -50,31 +54,31 @@ An Ansible role for installing and managing PostgreSQL.
     - `dw`: data warehouses
     - `desktop`: desktop applications
     - `mixed`: mixed type of applications
-- `postgresql_tune_total_memory` - total memory usable for PostgreSQL on server
+- `postgresql_tune_total_memory`: total memory usable for PostgreSQL on server
     - Default: `{{ ansible_memtotal_mb }}MB`
-- `postgresql_tune_total_memory_percentage` - percentage of total memory to allocate to PostgreSQL
+- `postgresql_tune_total_memory_percentage`: percentage of total memory to allocate to PostgreSQL
     - Default: `100`
 
 
 ### Replication
 
-- `postgresql_wal_level` - wal level. if PgLogical is enabled, `logical` is used.
+- `postgresql_wal_level`: wal level. if PgLogical is enabled, `logical` is used.
   - Default: `minimal`
-- `postgresql_max_worker_processes` - provider node requires one per database being replicated. Subscriber node requires one per provider node.
+- `postgresql_max_worker_processes`: provider node requires one per database being replicated. Subscriber node requires one per provider node.
   - Default: `8`
-- `postgresql_max_replication_slots` - provider node requires one per subscriber node.
+- `postgresql_max_replication_slots`: provider node requires one per subscriber node.
   - Default: `0`
-- `postgresql_max_wal_senders` - provider node requires one per subscriber node.
+- `postgresql_max_wal_senders`: provider node requires one per subscriber node.
   - Default: `0`
 
 #### PgLogical
 
-- `postgresql_pglogical` - install and configure pglogical.
+- `postgresql_pglogical`: install and configure pglogical.
   - Default: `no`
 
 ### Databases
 
-- `postgresql_databases` - list of databases to manage
+- `postgresql_databases`: list of databases to manage
   - Default: `[]`
   - Example
     ```yaml
@@ -93,7 +97,7 @@ An Ansible role for installing and managing PostgreSQL.
 
 ### Users
 
-- `postgresql_users` - list of databases to manage
+- `postgresql_users`: list of databases to manage
   - Default: `[]`
   - Example
     ```yaml

@@ -30,3 +30,6 @@ postgresql_pglogical: no
 
 postgresql_databases: []
 postgresql_users: []
+
+postgresql_extensions:
+  - postgresql-plpython
