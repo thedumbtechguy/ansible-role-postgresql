@@ -81,27 +81,25 @@
 # Noninteractive access to all databases is required during automatic
 # maintenance (custom daily cronjobs, replication, and similar tasks).
 #
-# Database administrative login by Unix domain socket
-local   all             postgres                                peer
-
-{% if postgresql_version | version_compare('9.3', '<=') %}
-# Database administrative login from localhost
-host    all             postgres        127.0.0.1/32            trust
-{% endif %}
 
 # TYPE  DATABASE        USER            ADDRESS                 METHOD
 
-# "local" is for Unix domain socket connections only
-local   all             all                                     peer
-# IPv4 local connections:
-host    all             all             127.0.0.1/32            md5
-# IPv6 local connections:
-host    all             all             ::1/128                 md5
-# Allow replication connections from localhost, by a user with the
-# replication privilege.
-#local   replication     postgres                                peer
-#host    replication     postgres        127.0.0.1/32            md5
-#host    replication     postgres        ::1/128                 md5
+# Database administrative login by Unix domain socket
+local   all             postgres                                peer
+{% if postgresql_version | version_compare('9.3', '<=') %}
+host    all             postgres        127.0.0.1/32            trust
+{% endif %}
+
+# Sensible Defaults
+# # "local" is for Unix domain socket connections only
+# local   all             all                                     peer
+# local   replication     all                                     peer
+# # IPv4 local connections:
+# host    all             all             127.0.0.1/32            md5
+# host    replication     all             127.0.0.1/32            md5
+# # IPv6 local connections:
+# host    all             all             ::1/128                 md5
+# host    replication     all             ::1/128                 md5
 
 
 {% for rule in postgresql_hba_mapping %}
